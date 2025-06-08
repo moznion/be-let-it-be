@@ -7,7 +7,9 @@ class TestBeLetItBe < Minitest::Test
     refute_nil ::BeLetItBe::VERSION
   end
 
-  def test_it_does_something_useful
-    assert false
+  def test_constants_are_loaded
+    assert defined?(BeLetItBe::CLI)
+    assert defined?(BeLetItBe::Analyzer)
+    assert defined?(BeLetItBe::Converter)
   end
 end
