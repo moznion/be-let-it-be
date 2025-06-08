@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    be_let_it_be (0.0.1)
+    be-let-it-be (0.0.1)
       parser (~> 3.3)
       thor (~> 1.3)
       unparser (~> 0.7)
@@ -101,7 +101,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  be_let_it_be!
+  be-let-it-be!
   irb
   minitest (~> 5.25)
   rake (~> 13.3)
