@@ -1,5 +1,7 @@
 # be-let-it-be
 
+[![Ruby](https://github.com/moznion/be-let-it-be/actions/workflows/main.yml/badge.svg)](https://github.com/moznion/be-let-it-be/actions/workflows/main.yml)
+
 A command-line tool that automatically converts RSpec's `let` and `let!` declarations to `let_it_be` where it's safe to do so. The tool runs your tests after each conversion to ensure they still pass, making the optimization process safe and reliable.
 
 ## Motivation
