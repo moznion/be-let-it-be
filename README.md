@@ -104,7 +104,7 @@ $ gem install be-let-it-be
 Convert a single spec file:
 
 ```bash
-bundle exec be-let-it-be convert spec/models/user_spec.rb
+be-let-it-be convert spec/models/user_spec.rb
 ```
 
 ### Options
@@ -117,13 +117,13 @@ bundle exec be-let-it-be convert spec/models/user_spec.rb
 
 ```bash
 # Dry-run to preview changes
-bundle exec be-let-it-be convert spec/models/user_spec.rb --dryrun
+be-let-it-be convert spec/models/user_spec.rb --dryrun
 
 # Verbose output for debugging
-bundle exec be-let-it-be convert spec/models/user_spec.rb --verbose
+be-let-it-be convert spec/models/user_spec.rb --verbose
 
 # Use custom RSpec command
-bundle exec be-let-it-be convert spec/models/user_spec.rb --rspec_cmd="rspec --format progress"
+be-let-it-be convert spec/models/user_spec.rb --rspec_cmd="rspec --format progress"
 ```
 
 ## When NOT to Use `let_it_be`
