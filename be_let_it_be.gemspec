@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email = ["moznion@mail.moznion.net"]
 
   spec.summary = "Convert RSpec let/let! to let_it_be where possible"
-  spec.description = "A command-line tool that analyzes RSpec files and converts let/let! to let_it_be where tests still pass"
+  spec.description = "A command-line tool that automatically converts RSpec's `let` and `let!` declarations to `let_it_be` where it's safe to do so."
   spec.homepage = "https://github.com/moznion/be-let-it-be"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.1.0"
