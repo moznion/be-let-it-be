@@ -110,6 +110,7 @@ be-let-it-be convert spec/models/user_spec.rb
 ### Options
 
 - `--dryrun` - Show what would be converted without making actual changes
+- `--dryrun-exit-code` - Exit code to use in dryrun mode when any convertible declarations are present (default: 1)
 - `--verbose` - Display detailed processing information
 - `--rspec_cmd` - Customize the RSpec command used for verification (default: "rspec")
 
