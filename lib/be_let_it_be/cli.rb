@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require "thor"
-require "parser/current"
-require "unparser"
 require "open3"
 
 module BeLetItBe

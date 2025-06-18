@@ -31,7 +31,6 @@ Gem::Specification.new do |spec|
   spec.executables = ["be-let-it-be"]
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "parser", "~> 3.3"
-  spec.add_dependency "unparser", "~> 0.7"
+  spec.add_dependency "prism", "~> 1.4"
   spec.add_dependency "thor", "~> 1.3"
 end
