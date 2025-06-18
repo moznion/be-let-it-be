@@ -34,7 +34,7 @@ module BeLetItBe
         num_of_lets = lets.length
 
         if num_of_lets.zero?
-          say "no let/let! in the given spec; do nothing"
+          say "✨ no let/let! in the given spec; do nothing"
           exit 0
         end
 
@@ -49,11 +49,11 @@ module BeLetItBe
           say "[#{processed_num}/#{num_of_lets}] Testing conversion of #{let[:type]} :#{let[:name]} at #{file}:#{let[:line]}"
 
           if converter.try_conversion_single_let(let, temp_file, -> { run_rspec(temp_file) })
-            say "  ✓ Converted to let_it_be"
+            say "  ✅ Converted to let_it_be"
             converter = Converter.new(temp_file) # pile the converted items
             converted_count += 1
           else
-            say "  ✗ Keeping original #{let[:type]} (test failed with let_it_be)"
+            say "  ❌ Keeping original #{let[:type]} (test failed with let_it_be)"
           end
 
           @processed_let_lines << let[:line]
@@ -66,9 +66,9 @@ module BeLetItBe
           else
             File.write(file, File.read(temp_file))
           end
-          say "✅ Successfully converted #{converted_count} out of #{lets.size} definitions to let_it_be"
+          say "🚀 Successfully converted #{converted_count} out of #{lets.size} definitions to let_it_be"
         else
-          say "❌ No conversions were possible (all tests failed with let_it_be)"
+          say "❣️ No conversions were possible (all tests failed with let_it_be)"
         end
       ensure
         File.unlink(temp_file) if File.exist?(temp_file)
