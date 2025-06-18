@@ -1,22 +1,18 @@
 # frozen_string_literal: true
 
-require "parser/current"
-require "unparser"
+require "prism"
 require "tempfile"
 
 module BeLetItBe
   class Converter
     def initialize(file)
-      @file = file
+      @file = file.respond_to?(:path) ? file.path : file
     end
 
     def try_conversion_single_let(let_info, output_file, exam)
       source = File.read(@file)
-      buffer = Parser::Source::Buffer.new(@file, source:)
 
-      temp_rewriter = Parser::Source::TreeRewriter.new(buffer)
-      apply_single_conversion(let_info, temp_rewriter)
-      File.write(output_file, temp_rewriter.process)
+      File.write(output_file, apply_single_conversion(let_info, source))
 
       passed = exam.call
       unless passed
@@ -27,11 +23,16 @@ module BeLetItBe
 
     private
 
-    def apply_single_conversion(let_info, rewriter)
+    def apply_single_conversion(let_info, source)
       node = let_info[:node]
-      method_range = node.loc.selector
 
-      rewriter.replace(method_range, "let_it_be")
+      start_offset = node.message_loc.start_offset
+      end_offset = node.message_loc.end_offset
+
+      new_source = source.dup
+      new_source[start_offset...end_offset] = "let_it_be"
+
+      new_source
     end
   end
 end
