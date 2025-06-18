@@ -65,14 +65,6 @@ class TestE2E < Minitest::Test
 
   private_constant :EXPECTED_OUTPUT
 
-  def test_e2e_dryrun
-    cmd = "#{File.join(Bundler.root.to_s, "bin", "be-let-it-be")} convert --dryrun #{fixture_path("sample_spec.rb")}"
-    stdout, _, status = Open3.capture3(cmd)
-
-    assert_equal EXPECTED_OUTPUT, stdout
-    assert_equal 0, status.exitstatus
-  end
-
   def test_e2e
     File.write(fixture_path("sample_spec.rb.dup"), File.read(fixture_path("sample_spec.rb")))
 
@@ -83,5 +75,29 @@ class TestE2E < Minitest::Test
     assert_equal EXPECTED_OUTPUT, File.read(fixture_path("sample_spec.rb.dup"))
   ensure
     File.unlink(fixture_path("sample_spec.rb.dup")) if File.exist?(fixture_path("sample_spec.rb.dup"))
+  end
+
+  def test_e2e_dryrun
+    cmd = "#{File.join(Bundler.root.to_s, "bin", "be-let-it-be")} convert --dryrun #{fixture_path("sample_spec.rb")}"
+    stdout, _, status = Open3.capture3(cmd)
+
+    assert_equal EXPECTED_OUTPUT, stdout
+    assert_equal 1, status.exitstatus
+  end
+
+  def test_e2e_dryrun_with_custom_exit_code
+    cmd = "#{File.join(Bundler.root.to_s, "bin", "be-let-it-be")} convert --dryrun --dryrun-exit-code 2 #{fixture_path("sample_spec.rb")}"
+    stdout, _, status = Open3.capture3(cmd)
+
+    assert_equal EXPECTED_OUTPUT, stdout
+    assert_equal 2, status.exitstatus
+  end
+
+  def test_e2e_dryrun_no_conversions_possible
+    cmd = "#{File.join(Bundler.root.to_s, "bin", "be-let-it-be")} convert --dryrun #{fixture_path("no_convertible_spec.rb")}"
+    stdout, _, status = Open3.capture3(cmd)
+
+    assert_equal "", stdout
+    assert_equal 0, status.exitstatus
   end
 end
