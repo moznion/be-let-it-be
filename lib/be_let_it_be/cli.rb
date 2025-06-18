@@ -9,6 +9,7 @@ module BeLetItBe
     option :dryrun, type: :boolean, default: false, desc: "Show what would be converted without modifying files"
     option :verbose, type: :boolean, default: false, desc: "Show the processing output verboselly"
     option :rspec_cmd, type: :string, default: "bundle exec rspec", desc: "RSpec command to check the behaviour"
+    option :dryrun_exit_code, type: :numeric, default: 1, desc: "Exit code to use in dryrun mode when any convertible declarations are present"
 
     def convert(file)
       @processed_let_lines = []
@@ -61,12 +62,14 @@ module BeLetItBe
         end
 
         if converted_count > 0
+          say "🚀 Successfully converted #{converted_count} out of #{lets.size} definitions to let_it_be"
+
           if options[:dryrun]
             puts File.read(temp_file)
+            exit options[:dryrun_exit_code]
           else
             File.write(file, File.read(temp_file))
           end
-          say "🚀 Successfully converted #{converted_count} out of #{lets.size} definitions to let_it_be"
         else
           say "❣️ No conversions were possible (all tests failed with let_it_be)"
         end
