@@ -10,32 +10,31 @@ module BeLetItBe
     end
 
     def find_lets
-      traverse(@ast, [])
+      traverse(@ast)
     end
 
     private
 
-    def traverse(node, lets)
-      # FIXME: lets should be immutable
-      return lets unless node.is_a?(Prism::Node)
+    def traverse(node)
+      return [] unless node.is_a?(Prism::Node)
 
       let_info = extract_let_info(node)
-      lets << let_info unless let_info.nil?
+      current_lets = let_info.nil? ? [] : [let_info]
 
-      case node
+      child_lets = case node
       when Prism::ProgramNode
-        traverse(node.statements, lets) if node.statements
+        traverse(node.statements)
       when Prism::StatementsNode
-        node.body.each { |child| traverse(child, lets) }
+        node.body.flat_map { |child| traverse(child) }
       when Prism::CallNode
-        traverse(node.block, lets) if node.block
+        traverse(node.block)
       when Prism::BlockNode
-        traverse(node.body, lets) if node.body
+        traverse(node.body)
       else
-        # NOP
+        []
       end
 
-      lets
+      current_lets + child_lets
     end
 
     def extract_let_info(node)
