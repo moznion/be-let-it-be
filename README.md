@@ -1,6 +1,6 @@
 # be-let-it-be
 
-[![Ruby](https://github.com/moznion/be-let-it-be/actions/workflows/main.yml/badge.svg)](https://github.com/moznion/be-let-it-be/actions/workflows/main.yml)
+[![Ruby](https://github.com/moznion/be-let-it-be/actions/workflows/main.yml/badge.svg)](https://github.com/moznion/be-let-it-be/actions/workflows/main.yml) [![Gem Version](https://badge.fury.io/rb/be-let-it-be.svg?icon=si%3Arubygems)](https://badge.fury.io/rb/be-let-it-be)
 
 A command-line tool that automatically converts RSpec's `let` and `let!` declarations to `let_it_be` where it's safe to do so. The tool runs your tests after each conversion to ensure they still pass, making the optimization process safe and reliable.
 
