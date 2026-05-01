@@ -7,7 +7,7 @@ gemspec
 
 gem "irb"
 gem "rake", "~> 13.3"
-gem "minitest", "~> 5.25"
+gem "minitest", "~> 6.0"
 gem "standard", "~> 1.50"
 
 gem "rspec", "~> 3.13"
