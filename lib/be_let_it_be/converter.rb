@@ -26,8 +26,8 @@ module BeLetItBe
     def apply_single_conversion(let_info, source)
       node = let_info[:node]
 
-      start_offset = node.message_loc.start_offset
-      end_offset = node.message_loc.end_offset
+      start_offset = node.message_loc.start_character_offset
+      end_offset = node.message_loc.end_character_offset
 
       new_source = source.dup
       new_source[start_offset...end_offset] = "let_it_be"
