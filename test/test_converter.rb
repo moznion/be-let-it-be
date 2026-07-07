@@ -31,6 +31,31 @@ class TestConverter < Minitest::Test
     end
   end
 
+  def test_conversion_with_multibyte_characters_before_let
+    # Prism's offsets are byte-based; without start_character_offset,
+    # multibyte chars before `let` shift String#[]= indices and corrupt the replacement.
+    source = <<~RUBY
+      # 日本語コメント
+      RSpec.describe "Test" do
+        let(:value) { 42 }
+      end
+    RUBY
+
+    Tempfile.create("test_spec.rb") do |temp_file|
+      File.write(temp_file, source)
+
+      analyzer = BeLetItBe::Analyzer.new(temp_file)
+      lets = analyzer.find_lets
+      converter = BeLetItBe::Converter.new(temp_file)
+
+      converter.try_conversion_single_let(lets.first, temp_file, -> { true })
+
+      result = File.read(temp_file)
+      assert_includes result, "let_it_be(:value)", "multibyte characters before let must not corrupt the replacement position"
+      refute_includes result, "let(:value)"
+    end
+  end
+
   def test_apply_multiple_conversions
     source = <<~RUBY
       RSpec.describe "Test" do
