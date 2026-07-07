@@ -14,10 +14,11 @@ jobs:
     strategy:
       matrix:
         ruby:
-          - '3.4.3'
+          - '3.4.10'
+          - '4.0.5'
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
