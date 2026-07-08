@@ -33,5 +33,5 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "logger"
   spec.add_dependency "prism", "~> 1.4"
-  spec.add_dependency "thor", "~> 1.3"
+  spec.add_dependency "thor", "~> 1.5"
 end
